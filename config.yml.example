@@ -1,0 +1,11 @@
+trello:
+  api_key: "aaa"
+  token: "bbb"
+  member_name: joe
+  board: "MyBoard"
+  list: "My List"
+web:
+  url: "http://www.site.com"
+  username: "xxx"
+  password: "yyy"
+  
