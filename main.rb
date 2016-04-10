@@ -70,7 +70,7 @@ raw_results.each do |result|
 		)
 		card.add_attachment(img)
 
-		#Send SMS Message
+		# Send SMS Message
 		config['twilio']['dest_phone_numbers'].each do |dest_phone_number|
 			@twilio_client.messages.create(
 			  from: config['twilio']['source_phone_number'],
@@ -79,6 +79,4 @@ raw_results.each do |result|
 			)
 		end
 	end
-
-	break
 end
