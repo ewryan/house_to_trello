@@ -8,4 +8,10 @@ web:
   url: "http://www.site.com"
   username: "xxx"
   password: "yyy"
-  
+twilio:
+  api_key: "xxxxxxx"
+  token: "xxxxxxxx"
+  source_phone_number: "+15555551212"
+  dest_phone_numbers:
+    - "+15555551212"
+    - "+15555551212"  
