@@ -20,6 +20,7 @@ eric = Member.find(config["trello"]["member_name"])
 
 board = eric.boards.select {|b| b.name==config["trello"]["board"]}.first
 list = board.lists.select {|l| l.name==config["trello"]["list"]}.first
+@existing_cards = board.cards.map {|c| c.name}.to_set
 
 
 m = Mechanize.new
@@ -49,19 +50,24 @@ raw_results.each do |result|
 	url = details_page.uri
 	description = details_page.at_css('div.description').text + "\r\n#{url}"
 
-	puts "#{price} - #{street} #{city} #{state} #{zip}"
-	puts description
+	key = "#{price} - #{street} #{city} #{state} #{zip}"
 
-	card = Card.create(
-		name: "#{price} - #{street} #{city}, #{state} #{zip}", 
-		list_id: list.id,
-		desc: description 
-	)
-	card.add_attachment(img)
+	if @existing_cards.include?(key)
+        puts "skipping '#{key}' .. card already exists"
+	else
+		puts key
+		puts description
+
+		card = Card.create(
+			name: key, 
+			list_id: list.id,
+			desc: description 
+		)
+		card.add_attachment(img)
+	end
 
 	break
 end
 
 #TODO
-# deduping
 # production
