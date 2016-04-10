@@ -1,0 +1,1 @@
+0 * * * * /bin/bash -l -c 'cd /home/deploy/house_to_trello && ruby main.rb'

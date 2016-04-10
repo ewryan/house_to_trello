@@ -39,7 +39,6 @@ raw_results = page.search('div.view-details-link-ct a')
 raw_results.each do |result|
 	href = result.attr('href')
 	details_page = m.get "http://www.iresis.com#{href}"
-    # ap details_page 
 
 	street = details_page.search('span.street').text
 	city = details_page.search('span.city').text
@@ -68,6 +67,3 @@ raw_results.each do |result|
 
 	break
 end
-
-#TODO
-# production
