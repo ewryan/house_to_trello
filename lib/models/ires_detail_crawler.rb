@@ -1,14 +1,19 @@
 class IRESDetailCrawler
 
-  def initialize config, mechanize_client, page
+  def initialize config, mechanize_client, details_url
     @config = config
-    @page = page
+    @details_url = details_url
     @m = mechanize_client
   end
 
   def run   
-    href = @page.attr('href')
-    details_page = @m.get "http://www.iresis.com#{href}"
+    details_page = @m.get @details_url   
+    if details_page.body.include?('loginName') 
+      form = details_page.forms.first
+      form['loginName'] = @config["web"]["username"]
+      form['password'] = @config["web"]["password"]
+      details_page = form.submit
+    end
 
     street = details_page.search('span.street').text
     city = details_page.search('span.city').text
@@ -22,7 +27,6 @@ class IRESDetailCrawler
 
 
     result = {
-      href: href,
       street: street,
       city: city,
       state: state,

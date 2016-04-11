@@ -7,3 +7,5 @@ gem "launchy"
 gem "twilio-ruby"
 
 gem "rspec"
+gem 'webmock'  
+gem 'vcr'
