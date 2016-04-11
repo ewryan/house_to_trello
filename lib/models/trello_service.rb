@@ -26,7 +26,7 @@ include Trello
       card = Card.create(
         name: hash[:key],
         list_id: @list.id,
-        desc: hash[:description]
+        desc: "#{hash[:description]}\r\n #{hash[:url]}"
       )
       card.add_attachment(hash[:img])
       return card

@@ -21,8 +21,8 @@ class IRESDetailCrawler
     zip = details_page.search('span.zip').text
     price = details_page.search('div.overview h3').text
     img = details_page.at_css('img').attr('src')
-    url = details_page.uri
-    description = details_page.at_css('div.description').text + "\r\n#{url}"
+    url = details_page.uri.to_s
+    description = details_page.at_css('div.description').text
     key = "#{price} - #{street} #{city} #{state} #{zip}"
 
 
