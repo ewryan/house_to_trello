@@ -23,6 +23,7 @@ include Trello
     	puts "skipping '#{hash[:key]} because Trello Card already exists"
     	return nil
     else
+      puts "creating '#{hash[:key]} Trello Card"
       card = Card.create(
         name: hash[:key],
         list_id: @list.id,
