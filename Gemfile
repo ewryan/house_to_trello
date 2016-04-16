@@ -9,3 +9,4 @@ gem "twilio-ruby"
 gem "rspec"
 gem 'webmock'  
 gem 'vcr'
+gem 'pry'

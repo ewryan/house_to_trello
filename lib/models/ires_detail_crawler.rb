@@ -1,5 +1,7 @@
 class IRESDetailCrawler
 
+  attr_reader :details_page
+
   def initialize config, mechanize_client, details_url
     @config = config
     @details_url = details_url
@@ -7,24 +9,24 @@ class IRESDetailCrawler
   end
 
   def run   
-    details_page = @m.get @details_url   
-    if details_page.body.include?('loginName') 
-      form = details_page.forms.first
+    @details_page = @m.get @details_url   
+    if @details_page.body.include?('loginName') 
+      form = @details_page.forms.first
       form['loginName'] = @config["web"]["username"]
       form['password'] = @config["web"]["password"]
-      details_page = form.submit
+      @details_page = form.submit
     end
 
-    street = details_page.search('span.street').text
-    city = details_page.search('span.city').text
-    state = details_page.search('span.state').text
-    zip = details_page.search('span.zip').text
-    price = details_page.search('div.overview h3').text
-    img = details_page.at_css('img').attr('src')
-    url = details_page.uri.to_s
-    description = details_page.at_css('div.description').text
+    street = @details_page.search('span.street').text
+    city = @details_page.search('span.city').text
+    state = @details_page.search('span.state').text
+    zip = @details_page.search('span.zip').text
+    price = @details_page.search('div.overview h3').text
+    img = @details_page.at_css('img').attr('src')
+    url = @details_page.uri.to_s
+    description = @details_page.at_css('div.description').text
     key = "#{price} - #{street} #{city} #{state} #{zip}"
-
+    status = @details_page.search('span.status').text
 
     result = {
       street: street,
@@ -35,7 +37,8 @@ class IRESDetailCrawler
       img: img,
       url: url,
       description: description,
-      key: key
+      key: key,
+      status: status
     }
     return result
   end
