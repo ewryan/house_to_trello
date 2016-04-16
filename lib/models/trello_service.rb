@@ -20,10 +20,10 @@ include Trello
   def create_if_doesnt_exist hash
     # Create Trello Card
     if @existing_cards.include?(hash[:key])
-    	puts "skipping '#{hash[:key]} because Trello Card already exists"
+    	# puts "skipping '#{hash[:key]} because Trello Card already exists"
     	return nil
     else
-      puts "creating '#{hash[:key]} Trello Card"
+      # puts "creating '#{hash[:key]} Trello Card"
       card = Card.create(
         name: hash[:key],
         list_id: @list.id,
